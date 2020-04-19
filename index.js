@@ -124,7 +124,7 @@ function checkWin(mark){
 	return result;
 }
 
-function playerOneMove(socket, boxId){	
+function playerOneMove(socket, boxId, playerMove){	
 	//io.emit('playerMove', socket.mark, box);
 	if (legalMove(boxId)){
 		// þetta er löglegt þá sendum við öllum mönnum nýja leikinn
@@ -148,7 +148,7 @@ function playerOneMove(socket, boxId){
 	}
 }
 
-function playerTwoMove(socket, boxId){	
+function playerTwoMove(socket, boxId, playerMove){	
 	//io.emit('playerMove', socket.mark, box);
 	if (legalMove(boxId)){
 		// þetta er löglegt þá sendum við öllum mönnum nýja leikinn
