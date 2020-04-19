@@ -129,6 +129,7 @@ function playerMove(socket, boxId){
 	if (legalMove(boxId)){
 		// þetta er löglegt þá sendum við öllum mönnum nýja leikinn
 		io.emit('playerMove', socket.mark, boxId);
+		console.log(socket.mark);
 		// og uppfærum okkar útgáfu af borðinu
 		leikbord[boxId] = socket.mark;
 		// athugum hvort spilarinn hafi unnið
@@ -137,6 +138,7 @@ function playerMove(socket, boxId){
 			init();
 		} else {
 			// leyfum tölvunni að leika, eftir smá tíma fyrir umhugsun auðvitað :P
+			console.log("PLAYER SWITCH");
 			setTimeout(playerMove, 750);
 		}		
 	} else {
