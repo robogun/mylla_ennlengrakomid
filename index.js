@@ -1,6 +1,7 @@
 // undirbúningsskipanir
-var app = require('express')();
-var http = require('http').createServer(app);
+var express = require('express');
+var app = express();
+var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var port = process.env.PORT || 3000
 
@@ -9,7 +10,7 @@ var numUsers = 0;
 
 // leyfum appinu okkar að fá aðganga að css skjalinu (þessi skipun myndi líka leyfa aðgang að öðrum
 // hlutum eins og t.d. myndum ef við erum með png/jpeg skrár sem við viljum nota)
-// app.use(express.static('./'));
+app.use(express.static('./'));
 // gerum rútu og sendum þeim sem þangað kemur rétt html skjal
 app.get('/', function(req, res){
 	res.sendFile(__dirname+'/index.html');
