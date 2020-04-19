@@ -137,7 +137,7 @@ function playerMove(socket, boxId){
 			init();
 		} else {
 			// leyfum tölvunni að leika, eftir smá tíma fyrir umhugsun auðvitað :P
-			setTimeout(computerMove, 750);
+			setTimeout(playerMove, 750);
 		}		
 	} else {
 		// en ef þetta er ólöglegur leikur þá látum við þann mann sem átti leik vita
