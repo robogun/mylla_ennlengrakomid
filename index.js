@@ -26,7 +26,7 @@ var leikbord = ["","","","","","","","",""];
 io.on('connection', function(socket){
 	socket.mark = player;
 	// seinna myndum við svo skipta um spilara ef við værum með 2 menn en ekki 1 mann og tölvu
-	//switchPlayer();
+	switchPlayer();
 	numUsers++;
 	console.log('a user has connected');
 	console.log('Number of users currently connected: '+numUsers);
