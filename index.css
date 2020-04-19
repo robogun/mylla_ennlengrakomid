@@ -1,0 +1,28 @@
+body
+{
+	margin: 0 auto;
+	width: 960px;
+	background-color: black;
+}
+table
+{	
+	background-color: red;
+	color: black;
+	border-collapse: collapse;
+}
+#main
+{
+	margin-left: 100px;
+}
+td
+{
+	text-align: center;
+	width: 125px;
+	height: 125px;
+	border: 1px solid black;
+}
+button
+{
+	width: 125px;
+	height: 75px;
+}

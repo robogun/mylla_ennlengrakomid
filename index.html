@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Mylla</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body>
+	<div id="main">
+		<br><br><br>
+		<button id="byrja_leik">Nýr Leikur</button>
+		<br><br>
+		<table id="tafla">
+			<tr>
+				<td id="0"></td>
+				<td id="1"></td>
+				<td id="2"></td>
+			</tr>
+			<tr>
+				<td id="3"></td>
+				<td id="4"></td>
+				<td id="5"></td>
+			</tr>
+			<tr>
+				<td id="6"></td>
+				<td id="7"></td>
+				<td id="8"></td>
+			</tr>
+		</table>
+	</div>
+	
+	<script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script type="text/javascript">
+    	var socket = io();
+
+    	// fall sem skrásetur hvar smellt var á borðið og emittar atburðinn 'move' og sendir númer reitsins með til serversins
+    	function playerMove(event){    		
+    		var boxId = event.target.id;
+    		socket.emit('move', boxId);
+    	}
+    	// fall sem segir servernum að við viljum hefja nýjan leik
+    	function restart(){
+    		socket.emit('nyrLeikur');
+    	}
+
+    	socket.on('playerMove', function(mark, boxId){
+    		document.getElementById(boxId).innerHTML = mark;
+    	});
+    	socket.on('illegal', function(){
+    		alert('Ólöglegur leikur!');
+    	});
+    	socket.on('computerMove', function(computerMark, boxId){
+    		document.getElementById(boxId).innerHTML = computerMark;
+    	});
+    	socket.on('nyrLeikur', function(){
+    		for (var i=0; i<9; i++){
+    			document.getElementById(i).innerHTML = "";
+    		}
+            alert('Nýr leikur hafinn!');
+    	});
+        socket.on('win', function(mark){
+            alert(mark+' hefur unnið!');
+        });
+
+    	// ef smellt er á byrja_leik takkann þá byrjar nýr leikur
+    	document.getElementById('byrja_leik').addEventListener('click', restart);
+    	// ef smellt er á borðið þá köllum við á fallið playerMove
+    	document.getElementById('tafla').addEventListener('click', playerMove);
+
+    </script>
+</body>
+</html>
