@@ -139,7 +139,7 @@ function playerOneMove(socket, boxId, playerMove){
 		} else {
 			// leyfum tölvunni að leika, eftir smá tíma fyrir umhugsun auðvitað :P
 			console.log("PLAYER SWITCH");
-			setTimeout(playerMove, 750);
+			// setTimeout(playerMove, 750);
 			playerTwoMove();
 		}		
 	} else {
@@ -163,7 +163,7 @@ function playerTwoMove(socket, boxId, playerMove){
 		} else {
 			// leyfum tölvunni að leika, eftir smá tíma fyrir umhugsun auðvitað :P
 			console.log("PLAYER SWITCH");
-			setTimeout(playerMove, 750);
+			// setTimeout(playerMove, 750);
 			playerOneMove();
 		}		
 	} else {
