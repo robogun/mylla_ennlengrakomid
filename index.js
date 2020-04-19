@@ -147,25 +147,25 @@ function playerMove(socket, boxId){
 	
 }
 
-function computerMove(){
-	// gerum tómt fylki
-	var emptyCells = [];
-	// göngum yfir reiti og bætum tómum reitum við fylkið okkar
-	for (var i=0; i<leikbord.length; i++){		
-		if (legalMove(i)) {
-			emptyCells.push(i);
-		}		
-	}
-	// veljum stak af handahófi úr tóma fylkinu okkar, stökin í því eru númer staka í leikborðinu okkar
-	var randomMove = emptyCells[Math.floor(Math.random()*emptyCells.length)];
-	// og uppfærum okkar útgáfu af borðinu
-	leikbord[randomMove] = computerMark;
-	// látum spilarann sjá leik tölvunnar
-	io.emit('computerMove', computerMark, randomMove);
-	// athugum hvort tölvan hafi unnið
-	if (checkWin(computerMark)){
-		io.emit('win', computerMark);
-		init();
-	}
-}
+// function computerMove(){
+// 	// gerum tómt fylki
+// 	var emptyCells = [];
+// 	// göngum yfir reiti og bætum tómum reitum við fylkið okkar
+// 	for (var i=0; i<leikbord.length; i++){		
+// 		if (legalMove(i)) {
+// 			emptyCells.push(i);
+// 		}		
+// 	}
+// 	// veljum stak af handahófi úr tóma fylkinu okkar, stökin í því eru númer staka í leikborðinu okkar
+// 	var randomMove = emptyCells[Math.floor(Math.random()*emptyCells.length)];
+// 	// og uppfærum okkar útgáfu af borðinu
+// 	leikbord[randomMove] = computerMark;
+// 	// látum spilarann sjá leik tölvunnar
+// 	io.emit('computerMove', computerMark, randomMove);
+// 	// athugum hvort tölvan hafi unnið
+// 	if (checkWin(computerMark)){
+// 		io.emit('win', computerMark);
+// 		init();
+// 	}
+// }
 
