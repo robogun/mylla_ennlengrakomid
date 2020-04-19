@@ -37,7 +37,7 @@ io.on('connection', function(socket){
 	});
 	// hlustum eftir move atburði, sem segir okkur að einhver spilari vilji leika leik
 	socket.on('move', function(boxId){
-		playerMove(socket, boxId);
+		playerOneMove(socket, boxId);
 	});
 	// hlustum eftir restart atburði, sem segir okkur að einhver spilari vilji hefja nýjan leik
 	socket.on('nyrLeikur', function(){
@@ -57,10 +57,10 @@ byrjaTakki.addEventListener('click', init);
 */
 
 function init(){
-	// núllstillum spilara
-	player = "X";
-	// núllstillum tölvu
-	computerMark = "O";
+	// núllstillum spilara 1
+	playerOne = "X";
+	// núllstillum spilara 2
+	playerTwo = "O";
 	// núllstillum leikborð
 	leikbord = ["","","","","","","","",""];
 	// núllstillum svo það sem birtist hjá notendum 
@@ -124,7 +124,7 @@ function checkWin(mark){
 	return result;
 }
 
-function playerMove(socket, boxId){	
+function playerOneMove(socket, boxId){	
 	//io.emit('playerMove', socket.mark, box);
 	if (legalMove(boxId)){
 		// þetta er löglegt þá sendum við öllum mönnum nýja leikinn
@@ -140,14 +140,38 @@ function playerMove(socket, boxId){
 			// leyfum tölvunni að leika, eftir smá tíma fyrir umhugsun auðvitað :P
 			console.log("PLAYER SWITCH");
 			setTimeout(playerMove, 750);
+			playerTwoMove();
 		}		
 	} else {
 		// en ef þetta er ólöglegur leikur þá látum við þann mann sem átti leik vita
 		socket.emit('illegal');
 	}
-
-	
 }
+
+function playerTwoMove(socket, boxId){	
+	//io.emit('playerMove', socket.mark, box);
+	if (legalMove(boxId)){
+		// þetta er löglegt þá sendum við öllum mönnum nýja leikinn
+		io.emit('playerMove', socket.mark, boxId);
+		console.log(socket.mark);
+		// og uppfærum okkar útgáfu af borðinu
+		leikbord[boxId] = socket.mark;
+		// athugum hvort spilarinn hafi unnið
+		if (checkWin(socket.mark)){
+			io.emit('win', socket.mark);
+			init();
+		} else {
+			// leyfum tölvunni að leika, eftir smá tíma fyrir umhugsun auðvitað :P
+			console.log("PLAYER SWITCH");
+			setTimeout(playerMove, 750);
+			playerOneMove();
+		}		
+	} else {
+		// en ef þetta er ólöglegur leikur þá látum við þann mann sem átti leik vita
+		socket.emit('illegal');
+	}
+}
+
 
 // function computerMove(){
 // 	// gerum tómt fylki
